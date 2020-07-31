@@ -96,7 +96,7 @@ const Profile = (props) => {
 
   const removeFromProfile = (e) => {
     e.preventDefault()
-    axios.delete(`${process.env.REACT_APP_SERVER_URL}profile/artifact/${e.target.id}`, artifacts)
+    axios.delete(`${process.env.REACT_APP_SERVER_URL}profile/artifact/${e.target.id}`)
     handleClose()
   }
 
