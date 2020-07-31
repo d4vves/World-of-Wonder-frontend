@@ -5,9 +5,19 @@ import Modal from 'react-bootstrap/Modal';
 import './modal.css'
 import axios from 'axios'
 import './JournalPage.css'
+import { connect } from 'mongoose';
 
 const JournalPage = () => {
   const [journalEntries, setJournalEntries] = useState([])
+  const [title, setTitle] = useState("");
+  const [entry, setEntry] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [journalEntry, setJournalEntry] = useState({
+    id: "",
+    title: "",
+    entry: ""
+  })
+
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/journal`, journalEntries)
@@ -17,11 +27,7 @@ const JournalPage = () => {
           .catch(error => console.log(error))
   }, [])
 
-    const [showModal, setShowModal] = useState(false);
-    const [journalEntry, setJournalEntry] = useState({
-      title: "",
-      entry: ""
-    })
+   
  
     const handleCloseModal = () => setShowModal(false);
     
@@ -30,31 +36,40 @@ const JournalPage = () => {
       axios.get(`${process.env.REACT_APP_SERVER_URL}/journal/${e.target.id}`, journalEntry)
         .then(response => {
           console.log(response.data)
-          setJournalEntry({title: response.data.title, entry: response.data.entry})
+          setJournalEntry({title: response.data.title, entry: response.data.entry, id: response.data._id})
           console.log(journalEntry)
         })
     }
 
     let editJournalEntry = (e) => {
       e.preventDefault()
-      console.log(e.target)
-      axios.put(`${process.env.REACT_APP_SERVER_URL}/journal/${e.target.id}`, journalEntry)
+      if (title === "") {
+        title = journalEntry.title
+      } 
+      if (entry === "") {
+        entry = journalEntry.entry
+      } 
+      let updatedEntry = {title: title, entry: entry}
+      console.log(updatedEntry)
+      axios.put(`${process.env.REACT_APP_SERVER_URL}/journal/${journalEntry.id}`, updatedEntry)
       .then(response => {
           console.log(`RESPONSE: ${response}`)
-          setJournalEntry(response.data)
+          console.log(response.data)
+          setShowModal(false)
+        
       })
       .catch(err => console.log(err))
     }
-     
-    // const editJournalEntry = (e) => {
-    //   console.log("ISTHIS WORKING")
-    //   axios.put(`${process.env.REACT_APP_SERVER_URL}/journal/${e.target.id}`, journalEntry)
-    //     .then(response => {
-    //       console.log(response.data)
-    //       setJournalEntry(response.data)
-    //     })
-    // }
- 
+
+    let deleteEntry = (e) => {
+      e.preventDefault()
+      axios.delete(`${process.env.REACT_APP_SERVER_URL}/journal/${journalEntry.id}`)
+        .then(response => {
+          console.log(response)
+
+        })
+
+    }
 
   return (
     <div className="journalPage">
@@ -78,12 +93,15 @@ const JournalPage = () => {
                   <button class="closeModal" onClick={handleCloseModal} >&times;</button>
               </div>
             <div class="editJournalEntry">
-                <form action="/journal/:id" method="POST" onSubmit={editJournalEntry}>
+                <form onSubmit={editJournalEntry}>
                   <label for="title" className="formLabel">Edit Title:</label>
-                  <input type="text" placeholder={journalEntry.title} id={journalEntry._id} className="formInput" ></input>
+                  <input type="text" placeholder={journalEntry.title} value={title} id={journalEntry._id} className="formInput" onChange={(e) => {setTitle(e.target.value)}}></input>
                   <label for="entry" className="formLabel">Edit Entry:</label>
-                  <input type="text" placeholder={journalEntry.entry} ></input>
-                  <input type="submit" className="modalButton" id={journalEntry._id} value="Edit Journal Entry"></input>
+                  <input type="text" placeholder={journalEntry.entry} value={entry} ></input>
+                  <input type="submit" className="modalButton" id={journalEntry._id} value="Edit Journal Entry" onChange={(e) => {setEntry(e.target.value)}}></input>
+                </form>
+                <form onSubmit={deleteEntry}>
+                  <input type="submit" className="modalButton" value="Delete Entry"></input>
                 </form>
               </div>
           </Modal.Body>
