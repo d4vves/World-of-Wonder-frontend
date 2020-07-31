@@ -56,6 +56,8 @@ const JournalPage = () => {
       axios.delete(`${process.env.REACT_APP_SERVER_URL}journal/${journalEntry.id}`)
         .then(response => {
           console.log(response)
+          getAllEntries()
+          setShowModal(false)
         })
     }
   return (
