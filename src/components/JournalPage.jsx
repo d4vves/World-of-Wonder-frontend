@@ -6,7 +6,6 @@ import './modal.css'
 import axios from 'axios'
 import './JournalPage.css'
 import { connect } from 'mongoose';
-
 const JournalPage = () => {
   const [journalEntries, setJournalEntries] = useState([])
   const [title, setTitle] = useState("");
@@ -17,60 +16,48 @@ const JournalPage = () => {
     title: "",
     entry: ""
   })
-
-
-  useEffect(() => {
+  const getAllEntries = () => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}journal`, journalEntries)
           .then(response => {
             setJournalEntries(response.data)
           })
           .catch(error => console.log(error))
+  }
+  useEffect(() => {
+    getAllEntries()
   }, [])
-
-   
- 
     const handleCloseModal = () => setShowModal(false);
-    
     const openJournal = (e) => {
       setShowModal(true)
       axios.get(`${process.env.REACT_APP_SERVER_URL}journal/${e.target.id}`, journalEntry)
         .then(response => {
           console.log(response.data)
+          setTitle(response.data.title)
+          setEntry(response.data.entry)
           setJournalEntry({title: response.data.title, entry: response.data.entry, id: response.data._id})
           console.log(journalEntry)
         })
     }
-
     let editJournalEntry = (e) => {
       e.preventDefault()
-      if (title === "") {
-        title = journalEntry.title
-      } 
-      if (entry === "") {
-        entry = journalEntry.entry
-      } 
       let updatedEntry = {title: title, entry: entry}
       console.log(updatedEntry)
       axios.put(`${process.env.REACT_APP_SERVER_URL}journal/${journalEntry.id}`, updatedEntry)
       .then(response => {
           console.log(`RESPONSE: ${response}`)
           console.log(response.data)
+          getAllEntries()
           setShowModal(false)
-        
       })
       .catch(err => console.log(err))
     }
-
     let deleteEntry = (e) => {
       e.preventDefault()
       axios.delete(`${process.env.REACT_APP_SERVER_URL}journal/${journalEntry.id}`)
         .then(response => {
           console.log(response)
-
         })
-
     }
-
   return (
     <div className="journalPage">
         <div className='jbgDiv'>
@@ -95,22 +82,19 @@ const JournalPage = () => {
             <div class="editJournalEntry">
                 <form onSubmit={editJournalEntry}>
                   <label for="title" className="formLabel">Edit Title:</label>
-                  <input type="text" placeholder={journalEntry.title} value={title} id={journalEntry._id} className="formInput" onChange={(e) => {setTitle(e.target.value)}}></input>
+                  <input type="text" value={title} className="formInput" onChange={(e) => {setTitle(e.target.value)}}></input>
                   <label for="entry" className="formLabel">Edit Entry:</label>
-                  <input type="text" placeholder={journalEntry.entry} value={entry} ></input>
-                  <input type="submit" className="modalButton closeModal" id={journalEntry._id} value="Edit Journal Entry" onChange={(e) => {setEntry(e.target.value)}}></input>
+                  <input type="text" className="formInput"  value={entry} onChange={(e) => {setEntry(e.target.value)}}></input>
+                  <input type="submit" className="modalButton" id={journalEntry._id} value="Edit Journal Entry" onChange={(e) => {setEntry(e.target.value)}}></input>
                 </form>
                 <form onSubmit={deleteEntry}>
-                  <input type="submit" className="modalButton closeModal" value="Delete Entry"></input>
+                  <input type="submit" className="modalButton" value="Delete Entry"></input>
                 </form>
               </div>
           </Modal.Body>
       </Modal>
     </div>
-
-    
   </div>
   )
 }
-
 export default JournalPage;
