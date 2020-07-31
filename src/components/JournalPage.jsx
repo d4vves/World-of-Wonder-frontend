@@ -20,7 +20,7 @@ const JournalPage = () => {
 
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/journal`, journalEntries)
+    axios.get(`${process.env.REACT_APP_SERVER_URL}journal`, journalEntries)
           .then(response => {
             setJournalEntries(response.data)
           })
@@ -33,7 +33,7 @@ const JournalPage = () => {
     
     const openJournal = (e) => {
       setShowModal(true)
-      axios.get(`${process.env.REACT_APP_SERVER_URL}/journal/${e.target.id}`, journalEntry)
+      axios.get(`${process.env.REACT_APP_SERVER_URL}journal/${e.target.id}`, journalEntry)
         .then(response => {
           console.log(response.data)
           setJournalEntry({title: response.data.title, entry: response.data.entry, id: response.data._id})
@@ -51,7 +51,7 @@ const JournalPage = () => {
       } 
       let updatedEntry = {title: title, entry: entry}
       console.log(updatedEntry)
-      axios.put(`${process.env.REACT_APP_SERVER_URL}/journal/${journalEntry.id}`, updatedEntry)
+      axios.put(`${process.env.REACT_APP_SERVER_URL}journal/${journalEntry.id}`, updatedEntry)
       .then(response => {
           console.log(`RESPONSE: ${response}`)
           console.log(response.data)
@@ -63,7 +63,7 @@ const JournalPage = () => {
 
     let deleteEntry = (e) => {
       e.preventDefault()
-      axios.delete(`${process.env.REACT_APP_SERVER_URL}/journal/${journalEntry.id}`)
+      axios.delete(`${process.env.REACT_APP_SERVER_URL}journal/${journalEntry.id}`)
         .then(response => {
           console.log(response)
 

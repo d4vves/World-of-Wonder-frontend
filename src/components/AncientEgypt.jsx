@@ -21,7 +21,7 @@ const AncientEgypt = (props) => {
     const handleShow = (e) => {
         setShow(true);
         let defaultImage = e.target.src
-        axios.get(`${process.env.REACT_APP_SERVER_URL}/artifact/${e.target.id}`, artifacts)
+        axios.get(`${process.env.REACT_APP_SERVER_URL}artifact/${e.target.id}`, artifacts)
             .then(response => {
                 let articleTitle = response.data['dc:title'][0].value
                 let articleDescription = response.data['dc:description'][0].value
@@ -33,7 +33,7 @@ const AncientEgypt = (props) => {
 
     const saveToProfile = (e) => {
         e.preventDefault()
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/profile/artifact/`, artifacts)
+        axios.post(`${process.env.REACT_APP_SERVER_URL}profile/artifact/`, artifacts)
         handleClose()
     }
 

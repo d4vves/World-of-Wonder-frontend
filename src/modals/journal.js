@@ -24,7 +24,7 @@ const Journal = (props) => {
             title: title,
             entry: entry
         }
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/journal`, newEntry)
+        axios.post(`${process.env.REACT_APP_SERVER_URL}journal`, newEntry)
         .then(response => {
             console.log(`RESPONSE: ${response}`)
             setTitle('')

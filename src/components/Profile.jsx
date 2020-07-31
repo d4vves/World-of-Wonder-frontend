@@ -20,7 +20,7 @@ const Profile = (props) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/profile`)
+    axios.get(`${process.env.REACT_APP_SERVER_URL}profile`)
       .then(response => {
 
         if (response.status === 200) {
@@ -48,7 +48,7 @@ const Profile = (props) => {
   const handleShow = (e) => {
     setShow(true);
     console.log(e.target.id)
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/profile/artifact/${e.target.id}`, artifacts)
+    axios.get(`${process.env.REACT_APP_SERVER_URL}profile/artifact/${e.target.id}`, artifacts)
       .then(response => {
         console.log(response)
         if (response.status === 200) {
@@ -96,7 +96,7 @@ const Profile = (props) => {
 
   const removeFromProfile = (e) => {
     e.preventDefault()
-    axios.delete(`${process.env.REACT_APP_SERVER_URL}/profile/artifact/${e.target.id}`, artifacts)
+    axios.delete(`${process.env.REACT_APP_SERVER_URL}profile/artifact/${e.target.id}`, artifacts)
     handleClose()
   }
 

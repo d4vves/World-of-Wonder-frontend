@@ -24,7 +24,7 @@ const Pacific = (props) => {
   const handleShow = (e) => {
     console.log(e.target.id)
     setShow(true);
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/artifact/${e.target.id}`, artifacts)
+    axios.get(`${process.env.REACT_APP_SERVER_URL}artifact/${e.target.id}`, artifacts)
         .then(response => {
             let articleTitle = response.data['dc:title'][0].value
             let articleDescription = response.data['dc:description'][0].value
@@ -35,7 +35,7 @@ const Pacific = (props) => {
 
     const saveToProfile = (e) => {
         e.preventDefault()
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/profile/artifact/`, artifacts)
+        axios.post(`${process.env.REACT_APP_SERVER_URL}profile/artifact/`, artifacts)
         handleClose()    
     }
 
