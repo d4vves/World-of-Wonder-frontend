@@ -14,6 +14,7 @@ const Profile = (props) => {
     name: "",
     description: "",
     imageurl: "",
+    id: ""
   })
 
 
@@ -24,7 +25,12 @@ const Profile = (props) => {
       .then(response => {
 
         if (response.status === 200) {
-          setArtifacts(response.data)
+          setArtifacts({
+            name: response.data.name,
+            description: response.data.description,
+            imageurl: response.data.imageurl,
+            id: response.data._id
+          })
         } else {
           setError(response.statusText)
           console.log(error)
@@ -96,7 +102,7 @@ const Profile = (props) => {
 
   const removeFromProfile = (e) => {
     e.preventDefault()
-    axios.delete(`${process.env.REACT_APP_SERVER_URL}profile/artifact/${e.target.id}`)
+    axios.delete(`${process.env.REACT_APP_SERVER_URL}profile/artifact/${artifact.id}`)
     handleClose()
   }
 
