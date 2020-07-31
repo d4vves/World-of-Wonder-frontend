@@ -60,7 +60,7 @@ export class Navbar extends Component {
                     <li><NavLink to="/ancientEgypt" className="link">Ancient Egypt</NavLink></li>
                     <li><NavLink to="/pacific" className="link">Pacific</NavLink></li>
                 </ul>
-                <Journal isAuthenticated={this.props.isAuthenticated} handleLogout={this.props.handleLogout} nowCurrentUser={this.props.nowCurrentUser} isAuthenticated={this.props.isAuthenticated} />
+                <Journal isAuthenticated={this.props.isAuthenticated} handleLogout={this.props.handleLogout} nowCurrentUser={this.props.nowCurrentUser} />
             </nav >
         );
     };

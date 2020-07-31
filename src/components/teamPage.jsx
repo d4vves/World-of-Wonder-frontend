@@ -1,6 +1,5 @@
 import React from 'react';
 import './teamPage.css'
-import { NavLink, Link } from 'react-router-dom'
 
 const teamPage = () => {
     return (
@@ -17,7 +16,7 @@ const teamPage = () => {
 
 
                         <a href="https://www.linkedin.com/in/davves/">
-                            <img src="https://ca.slack-edge.com/T0351JZQ0-U013QC43Y65-05cbbc63ff21-512" className="hoverable circle" />
+                            <img src="https://ca.slack-edge.com/T0351JZQ0-U013QC43Y65-05cbbc63ff21-512" className="hoverable circle" alt='Dave Stach profile' />
                         </a>
 
 
@@ -29,7 +28,7 @@ const teamPage = () => {
                             </div>
 
                             <a href="https://www.linkedin.com/in/caitlin-e-smith/">
-                                <img src="https://ca.slack-edge.com/T0351JZQ0-U013BVCGJEP-d66e669ac8c5-512" className="hoverable circle" />
+                                <img src="https://ca.slack-edge.com/T0351JZQ0-U013BVCGJEP-d66e669ac8c5-512" className="hoverable circle" alt="Caitlin Smith profile" />
                             </a>
 
 
@@ -49,7 +48,7 @@ const teamPage = () => {
                             </div>
 
                             <a href="https://www.linkedin.com/in/eric-young-se/">
-                                <img src="https://ca.slack-edge.com/T0351JZQ0-U013HUG6X6G-8c81eb7f9880-512" className="hoverable circle" />
+                                <img src="https://ca.slack-edge.com/T0351JZQ0-U013HUG6X6G-8c81eb7f9880-512" className="hoverable circle" alt="Eric Young profile" />
                             </a>
 
 
@@ -64,7 +63,7 @@ const teamPage = () => {
                             </div>
 
                             <a href="https://www.linkedin.com/in/jenniferpaigedephillips/">
-                                <img src="https://ca.slack-edge.com/T0351JZQ0-U01351NQPGW-629600a5fd01-512" className="hoverable circle" />
+                                <img src="https://ca.slack-edge.com/T0351JZQ0-U01351NQPGW-629600a5fd01-512" className="hoverable circle" alt="Jennifer De Phillips profile" />
                             </a>
 
 

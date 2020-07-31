@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import './Profile.css'
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -27,6 +27,7 @@ const Profile = (props) => {
           setArtifacts(response.data)
         } else {
           setError(response.statusText)
+          console.log(error)
         }
 
         console.log(response.data)
@@ -34,6 +35,7 @@ const Profile = (props) => {
       .catch(err => {
         console.log(err)
         setError(err.message)
+        console.log(error)
       })
   }, [])
 
@@ -53,11 +55,13 @@ const Profile = (props) => {
           setArtifact(response.data)
         } else {
           setError(response.statusText)
+          console.log(error)
         }
       })
       .catch(err => {
         console.log(err)
         setError(err.message)
+        console.log(error)
       })
   }
 
