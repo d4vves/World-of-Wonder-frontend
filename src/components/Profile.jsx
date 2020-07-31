@@ -142,7 +142,7 @@ const Profile = (props) => {
                 <input type="hidden" name="name" value={artifact.name}></input>
                 <input type="hidden" name="description" value={artifact.description}></input>
                 <input type="hidden" name="imageurl" value={artifact.imageurl}></input>
-                <button type="submit" className="modalButton" onClick={removeFromProfile}>Remove from Profile</button>
+                <button type="submit" className="modalButton closeModal" onClick={removeFromProfile}>Remove from Profile</button>
               </form>
             </Modal.Body>
           </Modal>
